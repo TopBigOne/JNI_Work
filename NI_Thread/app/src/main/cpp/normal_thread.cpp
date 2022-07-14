@@ -8,7 +8,6 @@
 pthread_t pthread;
 
 void createThread() {
-
     pthread_t  tid =  pthread_create(&pthread, nullptr, threadDoThing, nullptr);
     LOGD("normal thread : %ld",tid);
 }

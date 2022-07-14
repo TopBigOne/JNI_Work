@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.105" />
 
     <Button
-        android:id="@+id/btn_create_pthread2"
+        android:id="@+id/btn_p_and_c"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="pthread2 消费者，生产者"
@@ -31,6 +31,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.329" />
+
+    <Button
+        android:id="@+id/btn_pthread_callback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pthread callback"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.439"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.572" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

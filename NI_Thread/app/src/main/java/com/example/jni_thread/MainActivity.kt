@@ -1,9 +1,9 @@
 package com.example.jni_thread
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.jni_thread.databinding.ActivityMainBinding
 
 
@@ -29,14 +29,33 @@ class MainActivity : AppCompatActivity() {
             startNormalThread()
         }
 
+        binding.btnPAndC.setOnClickListener {
+            startMutexThread()
+        }
+        binding.btnPthreadCallback.setOnClickListener {
+            starPThreadCallback()
+        }
     }
 
     external fun startNormalThread()
+    external fun startMutexThread()
+    external fun starPThreadCallback()
 
     companion object {
         private const val TAG = "MainActivity :"
+
         init {
             System.loadLibrary("jni_thread")
         }
     }
+
+
+    //Jni调用此方法，把结果返回到java层
+    fun onError(code: Int, msg: String?) {
+        Log.d(TAG, "onError: thread : " + Thread.currentThread().name)
+        Log.d("ywl5320", "code: $code, msg: $msg");
+        //  onErrorListener.onError(code, msg)
+    }
+
+
 }
