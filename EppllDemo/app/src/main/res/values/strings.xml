@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Epoll Demo</string>
+    <string name="test_epoll">test epoll</string>
+</resources>
