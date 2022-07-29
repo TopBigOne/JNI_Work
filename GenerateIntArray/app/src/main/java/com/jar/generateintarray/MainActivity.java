@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
         TextView tv = binding.sampleText;
         int[] intArrayFromJni = createIntArray(30);
         System.err.println("intArrayFromJni ：" + Arrays.toString(intArrayFromJni));
+
+        String[] stringArrayFromJni = createStringArray(6);
+        System.err.println("stringArrayFromJni ：" + Arrays.toString(stringArrayFromJni));
     }
 
     /**
@@ -37,5 +40,7 @@ public class MainActivity extends AppCompatActivity {
      * @return
      */
     public native int[] createIntArray(int size);
+
+    public native String[] createStringArray(int size);
 
 }
