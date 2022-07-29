@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.jni_thread.databinding.ActivityMainBinding
 
 
+/**
+ * https://github.com/wanliyang1990/Android-JniThread
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
