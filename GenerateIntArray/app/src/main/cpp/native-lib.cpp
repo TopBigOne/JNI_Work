@@ -1,6 +1,17 @@
 #include <jni.h>
 #include <string>
 
+
+#include <android/log.h>
+
+const char *TAG = "xiao_ya";
+
+#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, TAG, __VA_ARGS__))
+#define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, TAG, __VA_ARGS__))
+#define LOGD(...) ((void)__android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__))
+#define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__))
+
+
 extern "C" JNIEXPORT jstring JNICALL
 Java_com_jar_generateintarray_MainActivity_stringFromJNI(
         JNIEnv *env,
@@ -43,20 +54,46 @@ extern "C"
 JNIEXPORT void JNICALL
 Java_com_jar_generateintarray_MainActivity_accessJavaField(JNIEnv *env, jobject thiz) {
     jclass clz = env->GetObjectClass(thiz);
-    // 访问静态成员变量
-    jfieldID sFieldId = env->GetStaticFieldID(clz, "sName", "Ljava/lang/String;");
-    if (sFieldId) {
-        auto jStr = static_cast<jstring>(env->GetStaticObjectField(clz, sFieldId));
+    // 访问成员变量
+    jfieldID mFieldId = env->GetFieldID(clz, "mName", "Ljava/lang/String;");
+    if (mFieldId) {
+        auto jStr = static_cast<jstring>(env->GetObjectField(thiz, mFieldId));
         // 将 jstring 转换为 C 风格字符串
         const char *sStr = env->GetStringUTFChars(jStr, JNI_FALSE);
+        LOGD("java 层的原始 mName：%s", sStr);
         // 释放资源
-        env->ReleaseStringUTFChars(jStr, sStr);
-        jstring newString = env->NewStringUTF("修改静态成员变量");
+        env->ReleaseStringUTFChars(static_cast<jstring>(jStr), sStr);
+
+        jstring newString = env->NewStringUTF("修成员变量:666");
         if (newString) {
-            env->SetStaticObjectField(clz, sFieldId, newString);
+            env->SetObjectField(thiz, mFieldId, newString);
         }
 
     }
 
+
+}
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_jar_generateintarray_MainActivity_accessJavaStaticField(JNIEnv *env, jobject thiz) {
+    jclass clz = env->GetObjectClass(thiz);
+    // 访问静态成员变量
+    jfieldID sFieldId = env->GetStaticFieldID(clz, "sName", "Ljava/lang/String;");
+    if (sFieldId) {
+
+        jstring jStr = static_cast<jstring>(env->GetStaticObjectField(clz, sFieldId));
+        // 将 jstring 转换为 C 风格字符串
+        const char *sStr = env->GetStringUTFChars(jStr, JNI_FALSE);
+        LOGD("java 层的原始 sName：%s", sStr);
+        // 释放资源
+        env->ReleaseStringUTFChars(jStr, sStr);
+
+        jstring newString = env->NewStringUTF("修成员变量:555");
+        if (newString) {
+            env->SetStaticObjectField(clz, sFieldId, newString);
+        }
+
+
+    }
 
 }

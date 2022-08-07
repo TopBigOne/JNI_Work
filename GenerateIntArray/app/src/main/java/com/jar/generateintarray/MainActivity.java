@@ -20,13 +20,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ActivityMainBinding binding;
-    private static String sName = "静态---》筱雅";
-    private String mName;
+    private static String sName = "java静态-->筱雅";
+    private String mName ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         // Example of a call to a native method
@@ -41,22 +40,26 @@ public class MainActivity extends AppCompatActivity {
 
             String[] stringArrayFromJni = createStringArray(6);
             System.err.println("stringArrayFromJni ：" + Arrays.toString(stringArrayFromJni));
-
-
             testJniAccessJavaStaticField();
+            testJniAccessJavaNormalField();
 
         });
 
+    }
+    /**
+     * jni 访问java的普通成员变量
+     */
+    private void testJniAccessJavaNormalField() {
+        accessJavaField();
+        System.err.println("mName 在被jni 修改了以后的信息: " + mName);
     }
 
     /**
      * jni 访问java的静态成员变量
      */
     private void testJniAccessJavaStaticField() {
-        System.err.println("sName 的原始信息            : " + sName);
-        accessJavaField();
+        accessJavaStaticField();
         System.err.println("sName 在被jni 修改了以后的信息: " + sName);
-
     }
 
     /**
@@ -73,5 +76,6 @@ public class MainActivity extends AppCompatActivity {
      * 访问java层的成员变量
      */
     public native void accessJavaField();
+    public native void accessJavaStaticField();
 
 }
