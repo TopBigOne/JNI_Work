@@ -93,7 +93,39 @@ Java_com_jar_generateintarray_MainActivity_accessJavaStaticField(JNIEnv *env, jo
             env->SetStaticObjectField(clz, sFieldId, newString);
         }
 
-
     }
 
 }
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_jar_generateintarray_MainActivity_invokeStaticlJavaMethod(JNIEnv *env, jobject thiz) {
+    jclass mainClass = env->GetObjectClass(thiz);
+    jmethodID helloOneId = env->GetStaticMethodID(mainClass, "helloOne", "(Ljava/lang/String;)V");
+    jstring pone = env->NewStringUTF("中午好好吃饭");
+    env->CallStaticVoidMethod(mainClass, helloOneId, pone);
+}
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_jar_generateintarray_MainActivity_invokeNormalJavaMethod(JNIEnv *env, jobject thiz) {
+    // 获取ArrayList 的 class 路径
+    jclass arrayListConstructClass = env->FindClass("java/util/ArrayList");
+    // 获取ArrayList构造函数id
+    jmethodID arrayListConstruct = env->GetMethodID(arrayListConstructClass, "<init>", "(I)V");
+    // capacity;
+    jint size = 100;
+    // 创建
+    jobject arrayList = env->NewObject(arrayListConstructClass, arrayListConstruct, size);
+    // 获取ArrayList 的add() 函数id
+    jmethodID addId = env->GetMethodID(arrayListConstructClass, "add", "(Ljava/lang/Object;)Z");
+    for (int i = 0; i < 10; ++i) {
+        jstring tempStr = env->NewStringUTF("筱");
+        env->CallBooleanMethod(arrayList, addId, tempStr);
+    }
+
+    jclass mainClass = env->GetObjectClass(thiz);
+    jmethodID helloTwoId = env->GetMethodID(mainClass, "helloTwo",
+                                            "(Ljava/util/ArrayList;)V");
+    env->CallVoidMethod(thiz, helloTwoId, arrayList);
+
+}
+

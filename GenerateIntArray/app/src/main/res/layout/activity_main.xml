@@ -7,15 +7,32 @@
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_test_jni"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#B31010"
+        android:id="@+id/btn_test_jni_access_filed"
+        android:layout_width="157dp"
+        android:layout_height="46dp"
+        android:background="#802525"
         android:text="@string/test_jni"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.203" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_test_jni_invoke_java_method"
+        android:layout_width="205dp"
+        android:layout_height="54dp"
+        android:background="#884D4D"
+        android:text="@string/c_plus_plus_invoke_java_method"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.425"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.335" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
