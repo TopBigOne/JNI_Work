@@ -98,7 +98,7 @@ Java_com_jar_generateintarray_MainActivity_accessJavaStaticField(JNIEnv *env, jo
 }
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_jar_generateintarray_MainActivity_invokeStaticlJavaMethod(JNIEnv *env, jobject thiz) {
+Java_com_jar_generateintarray_MainActivity_invokeStaticJavaMethod(JNIEnv *env, jobject thiz) {
     jclass mainClass = env->GetObjectClass(thiz);
     jmethodID helloOneId = env->GetStaticMethodID(mainClass, "helloOne", "(Ljava/lang/String;)V");
     jstring pone = env->NewStringUTF("中午好好吃饭");
@@ -127,5 +127,29 @@ Java_com_jar_generateintarray_MainActivity_invokeNormalJavaMethod(JNIEnv *env, j
                                             "(Ljava/util/ArrayList;)V");
     env->CallVoidMethod(thiz, helloTwoId, arrayList);
 
+
 }
 
+JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
+
+    LOGE("JNI_OnLoad---->");
+    return JNI_VERSION_1_6;
+}
+
+JNIEXPORT void JNI_OnUnload(JavaVM *vm, void *reserved) {
+
+    LOGE("JNI_OnUnload---->");
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_jar_generateintarray_MainActivity_throwExceptionByNative(JNIEnv *env, jobject thiz) {
+    jclass exceptionClz = env->FindClass("java/lang/IllegalArgumentException");
+    env->ThrowNew(exceptionClz, "这是一个来自native的Exception");
+    jthrowable exeThrowable = env->ExceptionOccurred();
+    if (exeThrowable) {
+        LOGE("native 出现了一个Exception");
+
+    }
+    env->ExceptionClear();
+}
