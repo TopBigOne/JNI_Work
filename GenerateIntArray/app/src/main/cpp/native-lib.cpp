@@ -36,3 +36,27 @@ Java_com_jar_generateintarray_MainActivity_createStringArray(JNIEnv *env, jobjec
     }
     return jarr;
 }
+/**
+ * 修改java层的成员变量： 普通变量和静态成员变量
+ */
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_jar_generateintarray_MainActivity_accessJavaField(JNIEnv *env, jobject thiz) {
+    jclass clz = env->GetObjectClass(thiz);
+    // 访问静态成员变量
+    jfieldID sFieldId = env->GetStaticFieldID(clz, "sName", "Ljava/lang/String;");
+    if (sFieldId) {
+        auto jStr = static_cast<jstring>(env->GetStaticObjectField(clz, sFieldId));
+        // 将 jstring 转换为 C 风格字符串
+        const char *sStr = env->GetStringUTFChars(jStr, JNI_FALSE);
+        // 释放资源
+        env->ReleaseStringUTFChars(jStr, sStr);
+        jstring newString = env->NewStringUTF("修改静态成员变量");
+        if (newString) {
+            env->SetStaticObjectField(clz, sFieldId, newString);
+        }
+
+    }
+
+
+}

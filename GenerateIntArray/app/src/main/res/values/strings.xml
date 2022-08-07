@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GenerateIntArray</string>
+    <string name="test_jni">test JNI</string>
 </resources>
