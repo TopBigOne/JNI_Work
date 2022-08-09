@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NdkBitmap</string>
+    <string name="native_bitmap">native bitmap</string>
 </resources>

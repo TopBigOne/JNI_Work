@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 3.18.1)
 
 # Declares and names the project.
 
-project("ndkbitmap")
+project("ndkbitmap_xiao_ya")
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
@@ -42,6 +42,7 @@ find_library( # Sets the name of the path variable.
 
 target_link_libraries( # Specifies the target library.
         ndkbitmap
+        jnigraphics
 
         # Links the target library to the log library
         # included in the NDK.
